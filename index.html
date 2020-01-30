@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <title>Строительная лаборатория - STARLAB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8">
+    <meta name="description" content="Аккредитованная Строительная Лаборатория предназначена для ..."/>
+    <meta name="robots" content="index,all"/>
+    <meta name="yandex-verification" content="afe4437aab77f1dc"/>
+    <meta name="yandex-verification" content="b471e7ed0933245b"/>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://strlab.ru/">
+    <meta property="og:title" content="Строительная лаборатория - STARLAB">
+    <meta property="og:image" content="images/logo.png"/>
+    <meta itemprop="description" content="Аккредитованная Строительная Лаборатория предназначена для ..."/>
+    <meta name="audience" content="all"/>
+    <meta name="home_url" content="https://strlab.ru"/>
+    <link href="css/reset.css" rel="stylesheet"><!-- основные стили -->
+    <link href="css/style.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/owl.carousel.min.css"><!-- стили owlcarousel -->
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <script src="js/jquery.v1.js"></script><!-- jQuery -->
+    <script src="js/owl.carousel.js"></script><!-- скрипт owlcarousel -->
+    <script src="js/slider.js"></script>
+    <link rel="stylesheet" href="css/responsive.css" type="text/css" media="screen">
+    <script src="js/slider.js"></script>
+    <script src="js/csi.min.js"></script>
+    <script type="text/javascript">
+        function send_request(a) {
+
+            $("body").find('button').attr('disabled', 'disabled').html('Заявка отправляется');
+
+            if ($(a).find("input[name='validpersonal']").is(':checked')) {
+
+                formContent = $(a);
+
+                var data = $(a).assocarrform();
+
+                data['url'] = document.location.href;
+                data['form'] = $(a).attr('data-name');
+
+                if (data['contact'] != undefined || data['contact'] > 3) {
+
+                    if (ValidMail(data['contact']) || ValidPhone(data['contact'])) {
+
+                        $.ajax({
+                            url: '/restapi/orderAdd',
+                            type: 'POST',
+                            data: {data: data},
+                            success: function (b) {
+
+                                var c = JSON.parse(b);
+                                if (c.status == 'success') {
+
+                                    $(formContent).closest('div').html('<div id="resultquery"><h1>Спасибо за заявку</h1></br><p>Мы свяжемся с вами в ближайшее время</p></div>');
+                                    formContent.remove();
+                                    $("body").find('button').removeAttr('disabled', 'disabled').html('Отправить');
+
+                                    var id = c.response.orderId;
+
+                                    $.ajax({
+                                        url: '/restapi/orderSend',
+                                        type: 'POST',
+                                        data: {id: id},
+                                        success: function (b) {
+                                        }
+                                    });
+                                } else if (c.status == "error" && c.response == "limit of requests has ended") {
+                                    alert("Заявка отправлена ранее. Мы свяжемся с вами в ближайшее время");
+                                } else {
+                                    alert("Извините, не удалось отправить заявку.");
+                                    $("body").find('button').removeAttr('disabled', 'disabled').html('Отправить');
+                                }
+                            }
+                        })
+                    } else {
+                        alert("Неверно заполнено поле");
+                        $("body").find('button').removeAttr('disabled', 'disabled').html('Отправить');
+                    }
+                } else {
+                    alert("Пожалуйста, заполните все поля");
+                    $("body").find('button').removeAttr('disabled', 'disabled').html('Отправить');
+                }
+
+            } else {
+                $("body").find('button').removeAttr('disabled', 'disabled').html('Отправить');
+            }
+            return false
+        }
+
+        $(document).ready(function () {
+            $('form').on('submit', function () {
+                send_request($(this))
+            });
+
+            $("#top-menu").load("top-menu.html");
+            $("#left-menu").load("left-menu.html");
+            $("#partners").load("partners.html");
+            $("#main-gap").load("main-content.html");
+            $("#after").load("after.html");
+        });
+
+        $.fn.assocarrform = function () {
+            var formData = {};
+            this.find('[name]').each(function () {
+                formData[this.name] = this.value;
+            });
+            return formData;
+        };
+
+        $(document).on('click', 'input[name=validpersonal]', function () {
+            if ($(this).is(':checked')) {
+                $('body').find('button').removeAttr('disabled').removeAttr('style');
+            } else {
+                $('body').find('button').attr('disabled', 'disabled').attr('style', 'color:#000;background:gray;border:0;');
+            }
+        });
+
+        function ValidMail(data) {
+            var re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
+            var myMail = data;
+            var valid = re.test(myMail);
+            if (valid) output = true;
+            else output = output = false;
+
+            return valid;
+        }
+
+        function ValidPhone(data) {
+            var re = /^\d[\d\(\)\ -]{4,14}\d$/;
+            var myPhone = data.replace(/[^0-9]/gim, '');
+            var valid = re.test(myPhone);
+            if (valid) output = true;
+            else output = false;
+
+            return valid;
+        }
+
+        $(document).on('click', 'a#uslugi', function () {
+            $("#main-gap").load("uslugi.html");
+        });
+        $(document).on('click', 'a#stoimosty', function () {
+            $("#main-gap").load("stoimosty.html");
+        });
+        $(document).on('click', 'a#pribornaya-baza', function () {
+            $("#main-gap").load("pribornaya-baza.html");
+        });
+        $(document).on('click', 'a#licenzii', function () {
+            $("#main-gap").load("licenzii.html");
+        });
+        $(document).on('click', 'a#statyi', function () {
+            $("#main-gap").load("statyi.html");
+        });
+        $(document).on('click', 'a#kontakty', function () {
+            $("#main-gap").load("kontakty.html");
+        });
+    </script>
+</head>
+<body class="" itemscope itemtype="http://schema.org/WebPage">
+<div id="top-menu"></div>
+
+<!-- /визуал -->
+<div align="center">
+    <div class="b_width">
+        <div id="left-menu"></div>
+
+        <!-- правая колонка -->
+        <div class="right_col">
+            <div class="partners">
+                <div class="owl-carousel" id="clients_block">
+                    <div class="item client_item">
+                        <div class="item_foto" style="background-image: url(&#39;images/partners/10.png&#39;);"></div>
+                    </div>
+                    <div class="item client_item">
+                        <div class="item_foto"
+                             style="background-image: url(&#39;images/partners/9.jpg&#39;);"></div>
+                    </div>
+                    <div class="item client_item">
+                        <div class="item_foto"
+                             style="background-image: url(&#39;images/partners/7.jpg&#39;);"></div>
+                    </div>
+                    <div class="item client_item">
+                        <div class="item_foto"
+                             style="background-image: url(&#39;images/partners/6.jpg&#39;);"></div>
+                    </div>
+                    <div class="item client_item">
+                        <div class="item_foto"
+                             style="background-image: url(&#39;images/partners/5.jpg&#39;);"></div>
+                    </div>
+                    <div class="item client_item">
+                        <div class="item_foto"
+                             style="background-image: url(&#39;images/partners/4.jpg&#39;);"></div>
+                    </div>
+                    <div class="item client_item">
+                        <div class="item_foto"
+                             style="background-image: url(&#39;images/partners/2.jpg&#39;);"></div>
+                    </div>
+                    <div class="item client_item">
+                        <div class="item_foto"
+                             style="background-image: url(&#39;images/partners/3.jpg&#39;);"></div>
+                    </div>
+                    <div class="item client_item">
+                        <div class="item_foto"
+                             style="background-image: url(&#39;images/partners/1.jpg&#39;);"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="main-gap"></div>
+            <div class="clear">&nbsp;</div>
+            <div class="main_gap">
+                <div class="h1 licenses"><a id='licenzii' href='#'>Лицензии</a></div>
+                <div class="owl-carousel_1">
+                    <div class="item mail_item"><a href="uploads/sro_proektirovchikov.pdf" target='_blank'>
+                        <div style="background-image: url('images/mini_sro_proet_novoe.jpg');"></div>
+                    </a></div>
+                    <div class="item mail_item"><a href="uploads/sro_izisk.pdf" target='_blank'>
+                        <div style="background-image: url('images/mini_lic_11.jpg');"></div>
+                    </a></div>
+                    <div class="item mail_item"><a href="uploads/sro_stroyka.pdf" target='_blank'>
+                        <div style="background-image: url('images/mini_lic_211.jpg');"></div>
+                    </a></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div id="after"></div>
+
+</body>
+</html>

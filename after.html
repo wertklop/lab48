@@ -1,0 +1,71 @@
+<div align="center" class="black_bg footer_menu">
+    <div class="b_width">
+        <div class="top_menu">
+            <ul class='nav-shapka_ul_1 menu'>
+                <li><a id='uslugi' href='#'>Услуги</a>
+                <li><a id='stoimosty' href='#'>Стоимость</a>
+                <li><a id='pribornaya-baza' href='#'>Приборная база</a>
+                <li><a id='licenzii' href='#'>Лицензии</a>
+                <li><a id='statyi' href='#'>Статьи</a>
+                <li><a id='kontakty' href='#'>Контакты</a>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="footer" align="center">
+    <div class="b_width">
+        <div class="copyright" style="width:50%;">
+            <div style="color:#fff;">© 2015-2020 Строительная лаборатория</div>
+        </div>
+        <div class="phone_b"><a class="get_call fancybox" href="#callback" id="showformpopup"
+                                data-name="Заказать обратный звонок">Заказать звонок</a><a class="phone"
+                                                                                           href="tel:+7 (495) 150-26-37">+7
+            (495) 150-26-37</a></div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="Fcallback" id='boxFormOrder'>
+    <span onclick='$(".bg_black").hide();$("body").removeAttr("style");$(".Fcallback").hide();'></span>
+    <h4>Заказать обратный звонок</h4>
+    <p class="podp">оставьте завку и мы перезвоним вам в ближайшее время</p>
+    <form name="callback" action="javascript:void(0);" method="post" data-name="Попап"><input type="text" value=""
+                                                                                              placeholder="* Ваше имя"
+                                                                                              name="name"/><input
+            type="text" value="" placeholder="* Ваш телефон" name="contact"/>
+        <p id="warrningform"></p>
+        <button type="submit">Отправить</button>
+        <div class="personalDan"><input type="checkbox" name='validpersonal' checked="checked"/>&nbsp;<a
+                href="/personal.html" target="_blank">Принимаю условия «Соглашения на обработку персональных данных»</a>
+        </div>
+    </form>
+
+    <!-- name: pod cart product-->
+    <script type="text/javascript">$(document).on('click', '.more_click', function () {
+        $(this).parents(".more_block").find(".more_info").fadeIn(1000);
+        $(this).hide();
+        return false;
+    });</script>
+
+    <!-- name: show form popup-->
+    <script type="text/javascript">$(document).on('click', '#showformpopup', function () {
+        d = document.createElement('div');
+        $(d).addClass("bg_black").appendTo($("body")).attr('onclick', '$(".bg_black").hide();$("body").removeAttr("style");$(".Fcallback").hide();').show();
+        $(".Fcallback").show().find('h4').html($(this).attr('data-name'));
+        $("body").attr('style', 'height:100%;overflow:hidden;');
+    });</script>
+
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@id": "https://strlab.ru/",
+                    "name": "Главная"
+                }
+            }
+        ]
+    }</script>

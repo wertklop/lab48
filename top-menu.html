@@ -1,0 +1,75 @@
+<!-- верхнее меню -->
+<div align="center" class="black_bg">
+    <div class="b_width">
+        <div class="top_menu toptop">
+            <ul class='nav-shapka_ul_1 menu'>
+                <li><a id='uslugi' href='#'>Услуги</a>
+                <li><a id='stoimosty' href='#'>Стоимость</a>
+                <li><a id='pribornaya-baza' href='#'>Приборная база</a>
+                <li><a id='licenzii' href='#'>Лицензии</a>
+                <li><a id='statyi' href='#'>Статьи</a>
+                <li><a id='kontakty' href='#'>Контакты</a>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- /верхнее меню --><!-- фиксированное меню -->
+<div id="fixedmenu" align="center" class="black_bg hide">
+    <div class="b_width">
+        <div class="top_menu toptop">
+            <ul>
+                <li class="fixedlogo"><a href="#">STRLAB.RU</a></li>
+                <li><a href="#callback" id="showformpopup" data-name="Кнопка в шапке">Онлайн заявка</a></li>
+                <li><a id="nash-opyt" href="#">Наш опыт</a></li>
+                <li><a id='uslugi' href='#'>Виды испытаний</a></li>
+                <li><a id='licenzii' href='#'>Лицензии</a></li>
+                <li><a id='kontakty' href='#'>Контакты</a></li>
+                <li><a class="fancybox" href="tel:+7 (495) 150-26-37">+7 (495) 150-26-37</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div><!-- /фиксированное меню --><!-- шапка -->
+<div align="center">
+    <div class="b_width">
+        <div class="logo_b"><a href="#">STRLAB.RU испытательная строительная лаборатория в Москве</a></div>
+        <div class="iconnav_top"> ☰</div>
+        <div class="mobile_nav">
+            <ul> {nav_fixmenu}</ul>
+        </div>
+        <div class="phone_b">
+            <a class="get_call fancybox" href="#callback" id="showformpopup" data-name="Заказать обратный звонок">Заказать звонок</a>
+            <a class="phone" href="tel:+7 (495) 150-26-37">+7 (495) 150-26-37</a>
+        </div>
+        <div class="phone_icon_b">
+            <div class="phone_icon"></div>
+            <div class="phone_icon_2"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div><!-- /шапка --><!-- визуал -->
+<div align="center" class="visual">
+    <div class="b_width">
+        <div class="sub_menu">
+            <ul class="selected">
+                <li><a href="#callback" id="showformpopup" data-name="Онлайн-заявка">Онлайн-заявка</a></li>
+                <li><a id="dlya-chego-laboratoriya" href="#">Для чего лаборатория</a></li>
+                <li><a id="nash-opyt" href="#">Наш опыт</a></li>
+                <li><a id="kak-my-rabotaem" href="#">Как мы работаем</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).on('click', 'a#dlya-chego-laboratoriya', function () {
+        $("#main-gap").load("dlya-chego-laboratoriya.html");
+    });
+    $(document).on('click', 'a#nash-opyt', function () {
+        $("#main-gap").load("nash-opyt.html");
+    });
+    $(document).on('click', 'a#kak-my-rabotaem', function () {
+        $("#main-gap").load("kak-my-rabotaem.html");
+    });
+</script>
